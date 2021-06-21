@@ -16,6 +16,8 @@
   r["CRAN"] = "http://cran.us.r-project.org"
   options(repos = r)
   
+
+  
   library(devtools)
   library(rpart)
   library(rpart.plot)
@@ -23,7 +25,20 @@
   library(RColorBrewer)
   library(dplyr)
   
-  mydir <-  '/Users/joaquin/Documents/Mios2020/covid/covid-arbol'
+  
+
+switch(Sys.info()[['sysname']],
+Windows= {			install.packages("rpart.plot")
+					install.packages("rattle")
+					mydir <-  'C:/Users/joaqu/Documents/Mios2020/13-dev2020/covid19/covid-arbol'
+					},
+Linux  = {
+					mydir <-  '/home/joaquin/Documents/covid19/covid-arbol'
+					},
+Darwin = {			mydir <-  '/Users/joaquin/Documents/Mios2020/covid/covid-arbol'
+					})
+					
+  
   strUrl <-  'http://datosabiertos.salud.gob.mx/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip'
   strFilename <- 'datos_abiertos_covid19.zip'
   strConfirmedResult  = 1
@@ -76,7 +91,7 @@
   
   #download and load into dataframe
   setwd(mydir)
-  if (FALSE) {
+  if (TRUE) {
   	download.file(strUrl, strFilename )
   	unzipfile <- unzip (strFilename, list = TRUE)
   	unzip (strFilename, unzipfile$Name)
